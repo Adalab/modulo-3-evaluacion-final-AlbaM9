@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Filters from './Filters';
 import CharacterList from './CharacterList';
 import CharacterDetail from './CharacterDetail';
@@ -35,14 +36,18 @@ function App() {
         <img src={logoRM} alt="R&M Logo" className='HeaderImg' />
       </header>
       <main>
-        <nav>
-          <Filters characters={characters} setFilteredCharacters={setFilteredCharacters} />
-        </nav>
+
+        <Filters characters={characters} setFilteredCharacters={setFilteredCharacters} />
+
         <section className='CharactersSection'>
-          <CharacterList characters={filteredCharacters} setCharacters={setCharacters} />
+          <Routes>
+            <Route path="/" element={<CharacterList characters={filteredCharacters} />} />
+            <Route path="/characters/:id" element={<CharacterDetail characters={characters} />} />
+          </Routes>
         </section>
       </main>
     </>
+
   )
 }
 

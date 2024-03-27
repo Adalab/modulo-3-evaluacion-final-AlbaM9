@@ -2,8 +2,8 @@
     margin-top: 30px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    /* Cuatro columnas iguales */
     gap: 30px;
+
 }
 
 .DetailSection {
@@ -12,7 +12,15 @@
     flex-direction: column;
     gap: 20px;
 
+
+
     .back {
         background-color: aqua;
     }
+}
+
+.Link {
+    color: inherit;
+    text-decoration: none;
+
 }
