@@ -14,11 +14,14 @@ function CharacterList({ characters, }) {
 
                 </div>*/}
 
-            {<div className="DetailSection" >
-                {characters.map(character => (
-                    <CharacterDetail character={character} />))}
+            {<>
+                <p className="back"> Volver </p>
+                <div className="DetailSection" >
+                    {characters.map(character => (
+                        <CharacterDetail character={character} />))}
 
-            </div>}
+                </div>
+            </>}
         </>
     )
 }

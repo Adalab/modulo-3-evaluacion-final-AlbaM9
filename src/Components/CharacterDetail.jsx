@@ -7,6 +7,7 @@ function CharacterDetail({ character }) {
     };
 
     return (
+
         <div className="CharacterDetail" onClick={handleClick} key={character.id}>
             <img src={character.image} alt="" />
             <div className='text'>
@@ -17,6 +18,7 @@ function CharacterDetail({ character }) {
                 <p> Status: {character.status}</p>
             </div>
         </div>
+
     )
 }
 
