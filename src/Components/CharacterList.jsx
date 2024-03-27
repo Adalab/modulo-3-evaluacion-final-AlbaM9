@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import CharacterCard from "./CharacterCard"
 
 import '../scss/CharacterList.scss';
@@ -7,16 +7,15 @@ import '../scss/CharacterList.scss';
 function CharacterList({ characters }) {
 
     return (
-
         <div className="CharacterList">
-            {characters.map((character) => (
-                <Link className="Link" key={character.id} to={`/characters/${character.id}`}>
-                    <CharacterCard character={character} />
-                </Link>
-            ))}
+            {characters
+                .sort((name, nameComp) => name.name.localeCompare(nameComp.name))
+                .map((character) => (
+                    <NavLink className="Link" key={character.id} to={`/characters/${character.id}`}>
+                        <CharacterCard character={character} />
+                    </NavLink>
+                ))}
         </div>
-
-
     )
 }
 export default CharacterList

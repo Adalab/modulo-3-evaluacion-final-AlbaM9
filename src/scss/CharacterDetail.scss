@@ -9,6 +9,8 @@
     margin: 0 auto;
 
 
+
+
     .text {
         margin-right: 30px;
 
@@ -17,6 +19,17 @@
     img {
         width: 30vh;
         padding: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .CharacterDetail {
+        width: 90%;
+
+        img {
+            width: 40%;
+            padding: 30px;
+        }
     }
 }
 

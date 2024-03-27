@@ -10,10 +10,11 @@ function App() {
 
   const [characters, setCharacters] = useState([{}]);
   const [filteredCharacters, setFilteredCharacters] = useState([]);
-
+  const [currentPath, setCurrentPath] = useState('');
 
 
   useEffect(() => {
+
     fetch('https://rickandmortyapi.com/api/character')
       .then(response => {
         if (!response.ok) {
@@ -28,7 +29,18 @@ function App() {
       .catch(error => {
         console.error('Error fetching characters:', error);
       });
+
+    setCurrentPath(window.location.pathname);
   }, []);
+
+  useEffect(() => {
+    // Comprobar si la ruta actual es diferente de la ruta raíz
+    if (currentPath !== '/' && currentPath !== '') {
+      // Redirigir a la ruta raíz
+      window.location.href = '/';
+    }
+  }, [currentPath]);
+
 
   return (
     <>
@@ -43,7 +55,9 @@ function App() {
           <Routes>
             <Route path="/" element={<CharacterList characters={filteredCharacters} />} />
             <Route path="/characters/:id" element={<CharacterDetail characters={characters} />} />
+
           </Routes>
+
         </section>
       </main>
     </>
