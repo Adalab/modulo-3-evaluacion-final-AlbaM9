@@ -11,22 +11,22 @@ function App() {
   const [filteredCharacters, setFilteredCharacters] = useState([]);
 
 
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('https://rickandmortyapi.com/api/character');
+    fetch('https://rickandmortyapi.com/api/character')
+      .then(response => {
         if (!response.ok) {
           throw new Error('Failed to fetch characters');
         }
-        const data = await response.json();
+        return response.json();
+      })
+      .then(data => {
+        console.log(data.results);
         setCharacters(data.results);
-
-      } catch (error) {
+      })
+      .catch(error => {
         console.error('Error fetching characters:', error);
-      }
-    };
-    fetchData();
-
+      });
   }, []);
 
   return (
@@ -41,7 +41,6 @@ function App() {
         <section className='CharactersSection'>
           <CharacterList characters={filteredCharacters} setCharacters={setCharacters} />
         </section>
-
       </main>
     </>
   )
