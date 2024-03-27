@@ -1,26 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import CharacterList from './CharacterList'
 
-function Filters({ characters, setCharacters, inputData, }) {
+function Filters({ characters, setFilteredCharacters }) {
+    const [inputData, setInputData] = useState("");
 
-    const [filteredCharacters, setFilteredCharacters] = useState(characters);
+
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch('https://rickandmortyapi.com/api/character');
-                if (!response.ok) {
-                    throw new Error('Failed to fetch characters');
-                }
-                const data = await response.json();
-                setCharacters(data.results);
+        setFilteredCharacters(characters);
+    }, [characters]);
 
-            } catch (error) {
-                console.error('Error fetching characters:', error);
-            }
-        };
-        fetchData();
-
-
+    useEffect(() => {
         const filterCharacters = () => {
             if (!inputData) {
                 setFilteredCharacters(characters);
@@ -31,14 +19,15 @@ function Filters({ characters, setCharacters, inputData, }) {
                 setFilteredCharacters(filtered);
             }
         };
-
         filterCharacters();
-
     }, [characters, inputData]);
 
-    return (<CharacterList characters={filteredCharacters} setCharacters={setCharacters} />)
-
-
+    const handleInputSearch = (event) => {
+        setInputData(event.target.value);
+    }
+    return (
+        <input type="text" onChange={handleInputSearch} placeholder='Search character...' />
+    )
 }
 
 export default Filters

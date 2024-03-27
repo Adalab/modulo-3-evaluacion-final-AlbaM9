@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Filters from './Filters';
 import CharacterList from './CharacterList';
 import CharacterDetail from './CharacterDetail';
@@ -8,11 +8,27 @@ import '../scss/App.scss';
 function App() {
 
   const [characters, setCharacters] = useState([{}]);
-  const [inputData, setInputData] = useState("");
+  const [filteredCharacters, setFilteredCharacters] = useState([]);
 
-  const handleinputSeach = (event) => {
-    setInputData(event.target.value);
-  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://rickandmortyapi.com/api/character');
+        if (!response.ok) {
+          throw new Error('Failed to fetch characters');
+        }
+        const data = await response.json();
+        setCharacters(data.results);
+
+      } catch (error) {
+        console.error('Error fetching characters:', error);
+      }
+    };
+    fetchData();
+
+  }, []);
+
   return (
     <>
       <header>
@@ -20,10 +36,10 @@ function App() {
       </header>
       <main>
         <nav>
-          <input type="text" onChange={handleinputSeach} placeholder='Search character...' />
+          <Filters characters={characters} setFilteredCharacters={setFilteredCharacters} />
         </nav>
         <section className='CharactersSection'>
-          <Filters inputData={inputData} characters={characters} setCharacters={setCharacters} />
+          <CharacterList characters={filteredCharacters} setCharacters={setCharacters} />
         </section>
 
       </main>
