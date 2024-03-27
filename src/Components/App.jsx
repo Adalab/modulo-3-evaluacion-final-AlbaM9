@@ -10,7 +10,7 @@ function App() {
 
   const [characters, setCharacters] = useState([{}]);
   const [filteredCharacters, setFilteredCharacters] = useState([]);
-  const [currentPath, setCurrentPath] = useState('');
+
 
 
   useEffect(() => {
@@ -30,16 +30,9 @@ function App() {
         console.error('Error fetching characters:', error);
       });
 
-    setCurrentPath(window.location.pathname);
+
   }, []);
 
-  useEffect(() => {
-    // Comprobar si la ruta actual es diferente de la ruta raíz
-    if (currentPath !== '/' && currentPath !== '') {
-      // Redirigir a la ruta raíz
-      window.location.href = '/';
-    }
-  }, [currentPath]);
 
 
   return (
