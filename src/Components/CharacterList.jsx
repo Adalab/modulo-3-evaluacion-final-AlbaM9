@@ -8,17 +8,17 @@ function CharacterList({ characters, }) {
 
     return (
         <>
-            {<div className="CharacterList">
+            {/*<div className="CharacterList">
                 {characters.map(character => (
                     <CharacterCard character={character} />))}
 
-            </div>}
+                </div>*/}
 
-            {/* <div className="DetailSection" >
+            {<div className="DetailSection" >
                 {characters.map(character => (
                     <CharacterDetail character={character} />))}
 
-                </div>*/}
+            </div>}
         </>
     )
 }
