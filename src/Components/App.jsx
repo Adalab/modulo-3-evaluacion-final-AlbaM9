@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Filters from './Filters';
 import CharacterList from './CharacterList';
 import CharacterDetail from './CharacterDetail';
@@ -7,6 +7,12 @@ import '../scss/App.scss';
 
 function App() {
 
+  const [characters, setCharacters] = useState([{}]);
+  const [inputData, setInputData] = useState("");
+
+  const handleinputSeach = (event) => {
+    setInputData(event.target.value);
+  }
   return (
     <>
       <header>
@@ -14,12 +20,10 @@ function App() {
       </header>
       <main>
         <nav>
-          <input type="text" />
+          <input type="text" onChange={handleinputSeach} placeholder='Search character...' />
         </nav>
         <section className='CharactersSection'>
-
-          <CharacterList />
-
+          <Filters inputData={inputData} characters={characters} setCharacters={setCharacters} />
         </section>
 
       </main>

@@ -1,0 +1,7 @@
+.CharacterList {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* Cuatro columnas iguales */
+    gap: 30px;
+}
