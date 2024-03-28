@@ -1,6 +1,6 @@
 # Rick and Morty Character Search
 
-![Rick and Morty Logo](rick_and_morty_logo.png)
+![Rick and Morty Logo](R&MLogo.png)
 
 Bienvenido a la aplicación de búsqueda de personajes de la serie "Rick and Morty"! Esta aplicación te permite buscar y explorar los diversos personajes de la serie animada.
 
@@ -54,11 +54,9 @@ Una vez que hayas instalado las dependencias, puedes iniciar el servidor y el cl
     npm run dev
     ```
 
-3. Abre tu navegador web y navega a `http://localhost:5173/modulo-3-evaluacion-final-AlbaM9/#/` para ver la aplicación en acción.
+3. Abre tu navegador web y navega a la dirección proporcionada por la consola para ver la aplicación en acción.
 
-## Contribuciones
 
-¡Las contribuciones son bienvenidas! Si tienes ideas para mejorar esta aplicación, por favor, crea un issue en el repositorio o envía una solicitud de extracción con tus cambios.
 
 ## Licencia
 
