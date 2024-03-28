@@ -1,6 +1,6 @@
 # Rick and Morty Character Search
 
-![Rick and Morty Logo](R&MLogo.png)
+![Rick and Morty Logo](https://i.pinimg.com/originals/0f/9c/10/0f9c10dd52778bc6c0b0754f8f8f6e2b.png)
 
 Bienvenido a la aplicación de búsqueda de personajes de la serie "Rick and Morty"! Esta aplicación te permite buscar y explorar los diversos personajes de la serie animada.
 
