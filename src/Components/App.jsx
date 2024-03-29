@@ -11,8 +11,6 @@ function App() {
   const [characters, setCharacters] = useState([{}]);
   const [filteredCharacters, setFilteredCharacters] = useState([]);
 
-
-
   useEffect(() => {
 
     fetch('https://rickandmortyapi.com/api/character')
@@ -30,7 +28,6 @@ function App() {
         console.error('Error fetching characters:', error);
       });
 
-
   }, []);
 
 
@@ -41,14 +38,15 @@ function App() {
         <img src={logoRM} alt="R&M Logo" className='HeaderImg' />
       </header>
       <main>
-
-        <Filters characters={characters} setFilteredCharacters={setFilteredCharacters} />
-
         <section className='CharactersSection'>
           <Routes>
-            <Route path="/" element={<CharacterList characters={filteredCharacters} />} />
+            <Route path="/" element={
+            <>
+              <Filters characters={characters} setFilteredCharacters={setFilteredCharacters} />
+              <CharacterList characters={filteredCharacters} />
+            </>
+           }/>
             <Route path="/characters/:id" element={<CharacterDetail characters={characters} />} />
-
           </Routes>
 
         </section>

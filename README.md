@@ -7,8 +7,8 @@ Bienvenido a la aplicación de búsqueda de personajes de la serie "Rick and Mor
 ## Características
 
 - Buscar personajes por nombre.
-- Filtrar personajes por estado y especie.
-- Ver detalles de los personajes, incluyendo su imagen, nombre, estado, especie, género y origen.
+- Filtrar personajes por especie y origen.
+- Ver detalles de los personajes, incluyendo su imagen, nombre, estado, especie y origen.
 
 ## Tecnologías Utilizadas
 

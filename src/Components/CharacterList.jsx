@@ -3,10 +3,10 @@ import CharacterCard from "./CharacterCard"
 
 import '../scss/CharacterList.scss';
 
-
 function CharacterList({ characters }) {
-
     return (
+
+        
         <div className="CharacterList">
             {characters
                 .sort((name, nameComp) => name.name.localeCompare(nameComp.name))

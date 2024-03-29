@@ -1,33 +1,76 @@
 import React, { useState, useEffect } from 'react';
+import '../scss/Filters.scss';
 
 function Filters({ characters, setFilteredCharacters }) {
     const [inputData, setInputData] = useState("");
-
-
-    useEffect(() => {
-        setFilteredCharacters(characters);
-    }, [characters]);
+    const [speciesFilters, setSpeciesFilters] = useState([]);
 
     useEffect(() => {
         const filterCharacters = () => {
-            if (!inputData) {
-                setFilteredCharacters(characters);
-            } else {
-                const filtered = characters.filter(character =>
+            let filtered = characters;
+
+            // Filtrar por nombre
+            if (inputData) {
+                filtered = filtered.filter(character =>
                     character.name.toLowerCase().includes(inputData.toLowerCase())
                 );
-                setFilteredCharacters(filtered);
             }
+
+            // Filtrar por especie
+            if (speciesFilters.length > 0) {
+                filtered = filtered.filter(character =>
+                    speciesFilters.includes(character.species.toLowerCase())
+                );
+            }
+
+            setFilteredCharacters(filtered);
         };
+        
         filterCharacters();
-    }, [characters, inputData]);
+    }, [characters, inputData, speciesFilters]);
 
     const handleInputSearch = (event) => {
         setInputData(event.target.value);
-    }
+    }  
+    
+    const handleSpeciesFilter = (event) => {
+        const { id, checked } = event.target;
+        let updatedFilters = [...speciesFilters];
+        if (checked) {
+            updatedFilters.push(id);
+        } else {
+            updatedFilters = updatedFilters.filter(filter => filter !== id);
+        }
+        setSpeciesFilters(updatedFilters);
+    };
+    
     return (
-        <input type="text" onChange={handleInputSearch} placeholder='Search character...' />
+        <form className='filters'>
+            <input type="text" onChange={handleInputSearch} placeholder='Search character...' />
+            <div className='filters_checkbox'>
+                <div>
+                <label htmlFor="human">Human</label>
+                    <input
+                    type="checkbox"
+                    id="human"
+                    onChange={handleSpeciesFilter}
+                    checked={speciesFilters.includes('human')}/>
+                
+                </div>
+                <div>
+                <label htmlFor="alien">Alien</label>
+                <input
+                    type="checkbox"
+                    id="alien"
+                    onChange={handleSpeciesFilter}
+                    checked={speciesFilters.includes('alien')}
+                />
+                 
+              
+                </div>
+            </div>
+        </form>
     )
 }
 
-export default Filters
+export default Filters;
