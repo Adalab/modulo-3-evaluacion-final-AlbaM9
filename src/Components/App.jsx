@@ -10,6 +10,7 @@ function App() {
 
   const [characters, setCharacters] = useState([{}]);
   const [filteredCharacters, setFilteredCharacters] = useState([]);
+  const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
 
@@ -42,8 +43,9 @@ function App() {
           <Routes>
             <Route path="/" element={
             <>
-              <Filters characters={characters} setFilteredCharacters={setFilteredCharacters} />
+              <Filters characters={characters} setFilteredCharacters={setFilteredCharacters} setNotFound={setNotFound}/>
               <CharacterList characters={filteredCharacters} />
+              {notFound && <p>No se encontraron resutados</p>}
             </>
            }/>
             <Route path="/characters/:id" element={<CharacterDetail characters={characters} />} />

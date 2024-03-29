@@ -8,20 +8,18 @@ function CharacterDetail({ characters }) {
     const character = characters.find((char) => char.id === parseInt(id));
     let status;
     let specie;
-    if (character.status === "Alive") {
-        status = "😊";
-    } else if (character.status === "Dead") {
-        status = "💀";
-    } else {
-        status = "🤷‍♂️";
-    }
 
-    if (character.species === "Human") {
-        specie = "👨‍🚀";
-    } else {
-        specie = "👽";
-    }
-
+    switch (character.status) {
+        case "Alive":
+          status = "😊";
+          break;
+        case "Dead":
+          status = "💀";
+          break;
+        default:
+          status = "🤷‍♂️";
+      }
+    character.species === "Human" ? specie="👨‍🚀" : specie = "👽";
 
     return (
         <>

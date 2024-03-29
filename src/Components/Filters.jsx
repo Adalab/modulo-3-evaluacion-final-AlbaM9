@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import '../scss/Filters.scss';
 
-function Filters({ characters, setFilteredCharacters }) {
+function Filters({ characters, setFilteredCharacters, setNotFound }) {
     const [inputData, setInputData] = useState("");
     const [speciesFilters, setSpeciesFilters] = useState([]);
+   
 
     useEffect(() => {
         const filterCharacters = () => {
@@ -24,10 +25,11 @@ function Filters({ characters, setFilteredCharacters }) {
             }
 
             setFilteredCharacters(filtered);
+            setNotFound(filtered.length === 0); 
         };
         
         filterCharacters();
-    }, [characters, inputData, speciesFilters]);
+    }, [characters, inputData, speciesFilters, setFilteredCharacters]);
 
     const handleInputSearch = (event) => {
         setInputData(event.target.value);
@@ -49,7 +51,7 @@ function Filters({ characters, setFilteredCharacters }) {
             <input type="text" onChange={handleInputSearch} placeholder='Search character...' />
             <div className='filters_checkbox'>
                 <div>
-                <label htmlFor="human">Human</label>
+                <label htmlFor="human">Human 👨‍🚀</label>
                     <input
                     type="checkbox"
                     id="human"
@@ -58,7 +60,7 @@ function Filters({ characters, setFilteredCharacters }) {
                 
                 </div>
                 <div>
-                <label htmlFor="alien">Alien</label>
+                <label htmlFor="alien">Alien 👽</label>
                 <input
                     type="checkbox"
                     id="alien"
@@ -69,6 +71,7 @@ function Filters({ characters, setFilteredCharacters }) {
               
                 </div>
             </div>
+            
         </form>
     )
 }
