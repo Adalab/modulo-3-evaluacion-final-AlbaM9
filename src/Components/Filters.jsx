@@ -2,22 +2,23 @@ import React, { useState, useEffect } from 'react';
 import '../scss/Filters.scss';
 
 function Filters({ characters, setFilteredCharacters, setNotFound }) {
-    const [inputData, setInputData] = useState("");
-    const [speciesFilters, setSpeciesFilters] = useState([]);
-   
+    const [inputData, setInputData] = useState(localStorage.getItem('inputData') || "");
+    const [speciesFilters, setSpeciesFilters] = useState(JSON.parse(localStorage.getItem('speciesFilters')) || []);
 
     useEffect(() => {
+        localStorage.setItem('inputData', inputData);
+        localStorage.setItem('speciesFilters', JSON.stringify(speciesFilters));
+
         const filterCharacters = () => {
             let filtered = characters;
 
-            // Filtrar por nombre
             if (inputData) {
                 filtered = filtered.filter(character =>
+                    typeof character.name === 'string' &&
                     character.name.toLowerCase().includes(inputData.toLowerCase())
                 );
+                
             }
-
-            // Filtrar por especie
             if (speciesFilters.length > 0) {
                 filtered = filtered.filter(character =>
                     speciesFilters.includes(character.species.toLowerCase())
@@ -29,7 +30,7 @@ function Filters({ characters, setFilteredCharacters, setNotFound }) {
         };
         
         filterCharacters();
-    }, [characters, inputData, speciesFilters, setFilteredCharacters]);
+    }, [characters, inputData, speciesFilters, setFilteredCharacters, setNotFound]);
 
     const handleInputSearch = (event) => {
         setInputData(event.target.value);
@@ -37,41 +38,32 @@ function Filters({ characters, setFilteredCharacters, setNotFound }) {
     
     const handleSpeciesFilter = (event) => {
         const { id, checked } = event.target;
-        let updatedFilters = [...speciesFilters];
-        if (checked) {
-            updatedFilters.push(id);
-        } else {
-            updatedFilters = updatedFilters.filter(filter => filter !== id);
-        }
-        setSpeciesFilters(updatedFilters);
+        setSpeciesFilters(prevFilters => checked ? [...prevFilters, id] : prevFilters.filter(filter => filter !== id));
     };
     
     return (
         <form className='filters'>
-            <input type="text" onChange={handleInputSearch} placeholder='Search character...' />
+            <input type="text" onChange={handleInputSearch} placeholder='Search character...' value={inputData} />
             <div className='filters_checkbox'>
                 <div>
-                <label htmlFor="human">Human 👨‍🚀</label>
+                    <label htmlFor="human">Human 👨‍🚀</label>
                     <input
-                    type="checkbox"
-                    id="human"
-                    onChange={handleSpeciesFilter}
-                    checked={speciesFilters.includes('human')}/>
-                
+                        type="checkbox"
+                        id="human"
+                        onChange={handleSpeciesFilter}
+                        checked={speciesFilters.includes('human')}
+                    />
                 </div>
                 <div>
-                <label htmlFor="alien">Alien 👽</label>
-                <input
-                    type="checkbox"
-                    id="alien"
-                    onChange={handleSpeciesFilter}
-                    checked={speciesFilters.includes('alien')}
-                />
-                 
-              
+                    <label htmlFor="alien">Alien 👽</label>
+                    <input
+                        type="checkbox"
+                        id="alien"
+                        onChange={handleSpeciesFilter}
+                        checked={speciesFilters.includes('alien')}
+                    />
                 </div>
             </div>
-            
         </form>
     )
 }
