@@ -12,6 +12,7 @@ function App() {
   const [filteredCharacters, setFilteredCharacters] = useState([]);
   const [notFound, setNotFound] = useState(false);
 
+
   useEffect(() => {
 
     fetch('https://rickandmortyapi.com/api/character')
@@ -32,7 +33,6 @@ function App() {
   }, []);
 
 
-
   return (
     <>
       <header>
@@ -42,12 +42,17 @@ function App() {
         <section className='CharactersSection'>
           <Routes>
             <Route path="/" element={
-            <>
-              <Filters characters={characters} setFilteredCharacters={setFilteredCharacters} setNotFound={setNotFound}/>
-              <CharacterList characters={filteredCharacters} />
-              {notFound && <p>No se encontraron resutados</p>}
-            </>
-           }/>
+              <>
+                <Filters
+                  characters={characters}
+                  setFilteredCharacters={setFilteredCharacters} setNotFound={setNotFound} />
+
+                <CharacterList
+                  characters={filteredCharacters} />
+
+                {notFound && <p>No se encontraron resutados</p>}
+              </>
+            } />
             <Route path="/characters/:id" element={<CharacterDetail characters={characters} />} />
           </Routes>
 

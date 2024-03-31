@@ -11,15 +11,15 @@ function CharacterDetail({ characters }) {
 
     switch (character.status) {
         case "Alive":
-          status = "😊";
-          break;
+            status = "😊";
+            break;
         case "Dead":
-          status = "💀";
-          break;
+            status = "💀";
+            break;
         default:
-          status = "🤷‍♂️";
-      }
-    character.species === "Human" ? specie="👨‍🚀" : specie = "👽";
+            status = "🤷‍♂️";
+    }
+    character.species === "Human" ? specie = "👨‍🚀" : specie = "👽";
 
     return (
         <>
