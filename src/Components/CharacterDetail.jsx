@@ -1,15 +1,42 @@
 import { useParams } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import '../scss/CharacterDetail.scss';
-
 
 function CharacterDetail({ characters }) {
     const { id } = useParams();
-    const character = characters.find((char) => char.id === parseInt(id));
+    const [IdCharacter, setIdCharacter] = useState(null);
+    const [NotFoundMsg, setNotFoundMsg] = useState(false);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            const foundCharacter = characters.find(char => char.id === parseInt(id));
+            if (foundCharacter) {
+                setIdCharacter(foundCharacter);
+            } else {
+                setNotFoundMsg(true);
+            }
+        }, 300);
+        return () => clearTimeout(timer);
+
+    }, [id, characters]);
+
+    if (!IdCharacter) {
+        return (
+            <h4>Cargando..</h4>
+        );
+    }
+
+    if (NotFoundMsg) {
+        return (
+            <h4>No se ha encontrado el personaje, por favor vuelva a intentarlo.</h4>
+        );
+    }
+
     let status;
     let specie;
 
-    switch (character.status) {
+    switch (IdCharacter.status) {
         case "Alive":
             status = "😊";
             break;
@@ -19,25 +46,26 @@ function CharacterDetail({ characters }) {
         default:
             status = "🤷‍♂️";
     }
-    character.species === "Human" ? specie = "👨‍🚀" : specie = "👽";
+
+    IdCharacter.species === "Human" ? specie = "👨‍🚀" : specie = "👽";
 
     return (
         <>
             <NavLink to={`/`} className='Link'>
-                <h4>Volver</h4>
-            </NavLink >
-            <div className="CharacterDetail" key={character.id}>
-                <img src={character.image} alt="" />
+                <h4>Back</h4>
+            </NavLink>
+            <div className="CharacterDetail" key={IdCharacter.id}>
+                <img src={IdCharacter.image} alt="" />
                 <div className='text'>
-                    <h3>{character.name}</h3>
+                    <h3>{IdCharacter.name}</h3>
                     <p> Specie: {specie}</p>
-                    <p> Origin: {character.origin.name}</p>
-                    <p> Episodes: {character.episode.length}</p>
+                    <p> Origin: {IdCharacter.origin.name}</p>
+                    <p> Episodes: {IdCharacter.episode.length}</p>
                     <p> Status: {status}</p>
                 </div>
             </div>
         </>
-    )
+    );
 }
 
-export default CharacterDetail
+export default CharacterDetail;

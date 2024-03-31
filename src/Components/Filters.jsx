@@ -4,11 +4,11 @@ import '../scss/Filters.scss';
 function Filters({ characters, setFilteredCharacters, setNotFound }) {
 
     const [inputData, setInputData] = useState(localStorage.getItem('inputData') || "");
-    const [speciesFilters, setSpeciesFilters] = useState(JSON.parse(localStorage.getItem('speciesFilters')) || []);
+    const [filterBySpecie, setFilterBySpecie] = useState(JSON.parse(localStorage.getItem('filterBySpecie')) || []);
 
     useEffect(() => {
         localStorage.setItem('inputData', inputData);
-        localStorage.setItem('speciesFilters', JSON.stringify(speciesFilters));
+        localStorage.setItem('filterBySpecie', JSON.stringify(filterBySpecie));
 
         const filterCharacters = () => {
             let filtered = characters;
@@ -20,9 +20,9 @@ function Filters({ characters, setFilteredCharacters, setNotFound }) {
                 );
 
             }
-            if (speciesFilters.length > 0) {
+            if (filterBySpecie.length > 0) {
                 filtered = filtered.filter(character =>
-                    speciesFilters.includes(character.species.toLowerCase())
+                    filterBySpecie.includes(character.species.toLowerCase())
                 );
             }
 
@@ -31,53 +31,57 @@ function Filters({ characters, setFilteredCharacters, setNotFound }) {
         };
 
         filterCharacters();
-    }, [characters, inputData, speciesFilters, setFilteredCharacters, setNotFound]);
+    }, [characters, inputData, filterBySpecie, setFilteredCharacters, setNotFound]);
 
     const handleInputSearch = (event) => {
         setInputData(event.target.value);
     }
 
-    const handleSpeciesFilter = (event) => {
+    const handleFilterBySpecie = (event) => {
         const { id, checked } = event.target;
-        setSpeciesFilters(prevFilters => checked ? [...prevFilters, id] : prevFilters.filter(filter => filter !== id));
+        setFilterBySpecie(prevFilters => checked ? [...prevFilters, id] : prevFilters.filter(filter => filter !== id));
     };
 
-    const handleKeyPress = (event) => {
+    const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
             event.preventDefault();
         }
     };
 
     return (
-        <form className='filters'>
-            <input
-                type="text"
-                onChange={handleInputSearch}
-                onKeyPress={handleKeyPress}
-                placeholder='Search character...'
-                value={inputData} />
+        <>
+            <h4>Search your favourites Characters!</h4>
+            <form className='filters'>
+                <input
+                    type="text"
+                    onChange={handleInputSearch}
+                    onKeyDown={handleKeyDown}
+                    placeholder='Name...'
+                    value={inputData} />
 
-            <div className='filters_checkbox'>
-                <div>
-                    <label htmlFor="human">Human 👨‍🚀</label>
-                    <input
-                        type="checkbox"
-                        id="human"
-                        onChange={handleSpeciesFilter}
-                        checked={speciesFilters.includes('human')}
-                    />
+                <div className='filters_checkbox'>
+                    <div>
+                        <label htmlFor="human">Human 👨‍🚀</label>
+                        <input
+                            type="checkbox"
+                            id="human"
+                            onChange={handleFilterBySpecie}
+                            checked={filterBySpecie.includes('human')}
+                        />
+                    </div>
+                    <div>
+
+                        <label htmlFor="alien">Alien 👽</label>
+                        <input
+                            type="checkbox"
+                            id="alien"
+                            onChange={handleFilterBySpecie}
+                            checked={filterBySpecie.includes('alien')}
+                        />
+                    </div>
                 </div>
-                <div>
-                    <label htmlFor="alien">Alien 👽</label>
-                    <input
-                        type="checkbox"
-                        id="alien"
-                        onChange={handleSpeciesFilter}
-                        checked={speciesFilters.includes('alien')}
-                    />
-                </div>
-            </div>
-        </form>
+            </form>
+        </>
     )
 }
 
