@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import '../scss/Filters.scss';
 
 function Filters({ characters, setFilteredCharacters, setNotFound }) {
@@ -22,6 +23,7 @@ function Filters({ characters, setFilteredCharacters, setNotFound }) {
             }
             if (filterBySpecie.length > 0) {
                 filtered = filtered.filter(character =>
+                    typeof character.species === 'string' &&
                     filterBySpecie.includes(character.species.toLowerCase())
                 );
             }
@@ -52,7 +54,7 @@ function Filters({ characters, setFilteredCharacters, setNotFound }) {
         <>
             <h4>Search your favourites Characters!</h4>
             <form className='filters'>
-                <input
+                <input className='nameSearch'
                     type="text"
                     onChange={handleInputSearch}
                     onKeyDown={handleKeyDown}
@@ -84,5 +86,11 @@ function Filters({ characters, setFilteredCharacters, setNotFound }) {
         </>
     )
 }
+
+Filters.propTypes = {
+    characters: PropTypes.array,
+    setfilteredCharacters: PropTypes.func,
+    setNotFound: PropTypes.func
+};
 
 export default Filters;

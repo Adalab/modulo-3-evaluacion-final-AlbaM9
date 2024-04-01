@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Filters from './Filters';
+import PropTypes from 'prop-types';
 import CharacterList from './CharacterList';
 import CharacterDetail from './CharacterDetail';
 import logoRM from '../images/R&MLogo.png';
@@ -23,7 +24,6 @@ function App() {
         return response.json();
       })
       .then(data => {
-        console.log(data.results);
         setCharacters(data.results);
       })
       .catch(error => {
@@ -50,7 +50,7 @@ function App() {
                 <CharacterList
                   characters={filteredCharacters} />
 
-                {notFound && <p>No se encontraron resutados</p>}
+                {notFound && <p>No results found</p>}
               </>
             } />
             <Route path="/characters/:id" element={<CharacterDetail characters={characters} />} />
@@ -62,5 +62,12 @@ function App() {
 
   )
 }
+
+App.propTypes = {
+  characters: PropTypes.array,
+  filteredCharacters: PropTypes.array,
+  setFilteredCharacters: PropTypes.func,
+  setNotFound: PropTypes.func
+};
 
 export default App

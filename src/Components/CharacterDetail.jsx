@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import '../scss/CharacterDetail.scss';
 
 function CharacterDetail({ characters }) {
@@ -16,20 +17,18 @@ function CharacterDetail({ characters }) {
             } else {
                 setNotFoundMsg(true);
             }
-        }, 300);
+        }, 100);
         return () => clearTimeout(timer);
 
     }, [id, characters]);
 
     if (!IdCharacter) {
-        return (
-            <h4>Cargando..</h4>
-        );
+        return
     }
 
     if (NotFoundMsg) {
         return (
-            <h4>No se ha encontrado el personaje, por favor vuelva a intentarlo.</h4>
+            <h4>Character not found, please try again</h4>
         );
     }
 
@@ -67,5 +66,10 @@ function CharacterDetail({ characters }) {
         </>
     );
 }
+
+CharacterDetail.propTypes = {
+    characters: PropTypes.array,
+
+};
 
 export default CharacterDetail;

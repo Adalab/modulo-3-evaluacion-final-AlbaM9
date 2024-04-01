@@ -1,21 +1,36 @@
-.filters{
+.filters {
     display: flex;
     justify-content: center;
-    gap:25%;
-    
-    .filters_checkbox{
+    gap: 25%;
+
+    @media (max-width: 360px) {
+
+        gap: 5%;
+
+    }
+
+    @media (max-width: 768px) {
+
+        gap: 20%;
+    }
+
+    .nameSearch {
+        margin-top: 15px;
+    }
+
+    .filters_checkbox {
         display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        justify-content: flex-start;
+        align-items: end;
+        justify-content: start;
     }
+
     .filters_checkbox label {
-        align-self: flex-start; 
+        align-self: start;
     }
-    
+
     .filters_checkbox input {
         width: 25px;
-        height: 25px; 
+        height: 25px;
         margin-right: 5px;
     }
 }

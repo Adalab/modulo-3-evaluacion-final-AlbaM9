@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import '../scss/CharacterCard.scss';
 
 function CharacterCard({ character }) {
@@ -10,4 +11,9 @@ function CharacterCard({ character }) {
         </div>
     )
 }
+
+CharacterCard.propTypes = {
+    character: PropTypes.object,
+};
+
 export default CharacterCard

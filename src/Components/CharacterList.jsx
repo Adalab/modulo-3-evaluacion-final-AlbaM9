@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import CharacterCard from "./CharacterCard";
 import '../scss/CharacterList.scss';
 
@@ -19,4 +20,8 @@ function CharacterList({ characters }) {
     );
 }
 
+CharacterList.propTypes = {
+    characters: PropTypes.array,
+
+};
 export default CharacterList;

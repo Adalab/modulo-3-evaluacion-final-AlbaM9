@@ -7,10 +7,15 @@
 
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
+    .CharacterList {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width:768px) {
     .CharacterList {
         grid-template-columns: repeat(1, 1fr);
-        /* Cambiar a 2 columnas en dispositivos con un ancho máximo de 768px */
     }
 }
 
